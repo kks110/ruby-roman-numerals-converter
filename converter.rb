@@ -43,24 +43,31 @@ class Converter
   # Then out puts the final number.
   def roman_convert(input)
     numerals_string = []
-    input = input.split('')
+    number_length = input.to_s.split('').length
+    input_array = input.split('')
 
-    puts "   #{input.last} = #{@units[input.last.to_i - 1]}"
-    numerals_string.unshift( @units[input.pop.to_i - 1])
-
-    unless input.empty?
-      puts "  #{input.last}0 = #{@tens[input.last.to_i - 1]}"
-      numerals_string.unshift( @tens[input.pop.to_i - 1])
-    end
-
-    unless input.empty?
-      puts " #{input.last}00 = #{@hundreds[input.last.to_i - 1]}"
-      numerals_string.unshift( @hundreds[input.pop.to_i - 1])
-    end
-
-    unless input.empty?
-      puts "#{input.last}000 = #{@thousands[input.last.to_i - 1]}"
-      numerals_string.unshift( @thousands[input.pop.to_i - 1])
+    puts number_length
+    until input_array.empty?
+      case number_length
+      when 4
+        puts 'Length of 4'
+        puts "#{input_array.last}000 = #{@thousands[input_array.last.to_i - 1]}"
+        numerals_string.push( @thousands[input_array.pop.to_i - 1])
+      when 3
+        puts 'Length of 3'
+        puts " #{input_array.last}00 = #{@hundreds[input_array.last.to_i - 1]}"
+        numerals_string.push( @hundreds[input_array.pop.to_i - 1])
+      when 2
+        puts 'Length of 2'
+        puts " #{input_array.last}0 = #{@tens[input_array.last.to_i - 1]}"
+        numerals_string.push( @tens[input_array.pop.to_i - 1])
+      when 1
+        puts 'Length of 1'
+        puts " #{input_array.last} = #{@units[input_array.last.to_i - 1]}"
+        numerals_string.push( @units[input_array.pop.to_i - 1])
+      else
+        break
+      end
     end
 
     puts ''
