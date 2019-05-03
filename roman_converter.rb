@@ -1,11 +1,25 @@
 
-class Converter
+class RomanConverter
   # The Roman numerals.
   def initialize
     @units = %w[I II III IV V VI VII VIII IX]
     @tens = %w[X XX XXX XL L LX LXX LXXX XC]
     @hundreds = %w[C CC CCC DC D DC DCC DCCC CM]
     @thousands = %w[M MM MMM]
+
+    puts 'You can write numbers between 1 and 3999 using Roman Numerals.'
+    puts 'I = 1'
+    puts 'V = 5'
+    puts 'X = 10'
+    puts 'L = 50'
+    puts 'C = 100'
+    puts 'D = 500'
+    puts 'M = 1000'
+    puts ''
+  end
+
+  def run
+    roman_convert(enter_number)
   end
 
   # Gets the number.
@@ -19,8 +33,7 @@ class Converter
       user_input = gets.chomp
     end
     puts ''
-    # Converts it.
-    roman_convert(user_input)
+    user_input
   end
 
   # Checks if input is a number, then if its between 1 and 3999.

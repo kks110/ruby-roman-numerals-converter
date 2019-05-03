@@ -1,15 +1,22 @@
-require './converter'
+require './roman_converter'
 
-puts 'You can write numbers between 1 and 3999 using Roman Numerals.'
-puts 'I = 1'
-puts 'V = 5'
-puts 'X = 10'
-puts 'L = 50'
-puts 'C = 100'
-puts 'D = 500'
-puts 'M = 1000'
-puts ''
 
-converter = Converter.new
 
-converter.enter_number
+puts 'Welcome to the converter. How would you like to convert?'
+puts '1: Roman to Digits'
+puts '2: Digits to Roman'
+input = gets.chomp
+
+until input == '1' || input == '2'
+  puts 'Please enter either 1 or 2'
+  input = gets.chomp
+end
+
+converter = if input == '1'
+              RomanConverter.new
+            else
+              DigitConverter.new
+            end
+
+converter.run
+
