@@ -1,7 +1,6 @@
 
 class Converter
   # The Roman numerals.
-
   def initialize
     @units = %w[I II III IV V VI VII VIII IX]
     @tens = %w[X XX XXX XL L LX LXX LXXX XC]
@@ -27,7 +26,7 @@ class Converter
   # Checks if input is a number, then if its between 1 and 3999.
   def valid_input?(input)
     if input =~ /\A\d+\Z/
-      if input.to_i > 0 && input.to_i < 4000
+      if input.to_i > 0 and input.to_i < 4000
         true
       else
         false
@@ -38,36 +37,29 @@ class Converter
   end
 
   # Takes the input. Makes it an array.
-  # Does the conversion, outputs what that number is
-  # and adds it to the numerals array.
+  # Does the conversion, outputs what that number is and
+  # # adds it to the numerals array.
   # Then out puts the final number.
   def roman_convert(input)
     numerals_string = []
-    number_length = input.to_s.split('').length
-    input_array = input.split('')
+    input = input.split('')
 
-    puts number_length
-    until input_array.empty?
-      case number_length
-      when 4
-        puts 'Length of 4'
-        puts "#{input_array.last}000 = #{@thousands[input_array.last.to_i - 1]}"
-        numerals_string.push( @thousands[input_array.pop.to_i - 1])
-      when 3
-        puts 'Length of 3'
-        puts " #{input_array.last}00 = #{@hundreds[input_array.last.to_i - 1]}"
-        numerals_string.push( @hundreds[input_array.pop.to_i - 1])
-      when 2
-        puts 'Length of 2'
-        puts " #{input_array.last}0 = #{@tens[input_array.last.to_i - 1]}"
-        numerals_string.push( @tens[input_array.pop.to_i - 1])
-      when 1
-        puts 'Length of 1'
-        puts " #{input_array.last} = #{@units[input_array.last.to_i - 1]}"
-        numerals_string.push( @units[input_array.pop.to_i - 1])
-      else
-        break
-      end
+    puts "   #{input.last} = #{@units[input.last.to_i - 1]}"
+    numerals_string.unshift( @units[input.pop.to_i - 1] )
+
+    unless input.empty?
+      puts "  #{input.last}0 = #{@tens[input.last.to_i - 1]}"
+      numerals_string.unshift( @tens[input.pop.to_i - 1] )
+    end
+
+    unless input.empty?
+      puts " #{input.last}00 = #{@hundreds[input.last.to_i - 1]}"
+      numerals_string.unshift( @hundreds[input.pop.to_i - 1] )
+    end
+
+    unless input.empty?
+      puts "#{input.last}000 = #{@thousands[input.last.to_i - 1]}"
+      numerals_string.unshift( @thousands[input.pop.to_i - 1] )
     end
 
     puts ''
