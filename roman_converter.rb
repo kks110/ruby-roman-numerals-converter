@@ -2,10 +2,10 @@
 class RomanConverter
   # The Roman numerals.
   def initialize
-    @units = %w[I II III IV V VI VII VIII IX]
-    @tens = %w[X XX XXX XL L LX LXX LXXX XC]
-    @hundreds = %w[C CC CCC DC D DC DCC DCCC CM]
-    @thousands = %w[M MM MMM]
+    @units = %w[I I II III IV V VI VII VIII IX]
+    @tens = %w[X X XX XXX XL L LX LXX LXXX XC]
+    @hundreds = %w[C C CC CCC DC D DC DCC DCCC CM]
+    @thousands = %w[M M MM MMM]
 
     puts 'You can write numbers between 1 and 3999 using Roman Numerals.'
     puts 'I = 1'
@@ -60,17 +60,17 @@ class RomanConverter
     until input_array.empty?
       case input_array.length
       when 4
-        puts "#{input_array.first}000 = #{@thousands[input_array.first.to_i - 1]}"
-        numerals_string.push(@thousands[input_array.shift.to_i - 1])
+        puts "#{input_array.first}000 = #{@thousands[input_array.first.to_i]}"
+        numerals_string.push(@thousands[input_array.shift.to_i])
       when 3
-        puts " #{input_array.first}00 = #{@hundreds[input_array.first.to_i - 1]}"
-        numerals_string.push(@hundreds[input_array.shift.to_i - 1])
+        puts " #{input_array.first}00 = #{@hundreds[input_array.first.to_i]}"
+        numerals_string.push(@hundreds[input_array.shift.to_i])
       when 2
-        puts "  #{input_array.first}0 = #{@tens[input_array.first.to_i - 1]}"
-        numerals_string.push(@tens[input_array.shift.to_i - 1])
+        puts "  #{input_array.first}0 = #{@tens[input_array.first.to_i]}"
+        numerals_string.push(@tens[input_array.shift.to_i])
       when 1
-        puts "   #{input_array.first} = #{@units[input_array.first.to_i - 1]}"
-        numerals_string.push(@units[input_array.shift.to_i - 1])
+        puts "   #{input_array.first} = #{@units[input_array.first.to_i]}"
+        numerals_string.push(@units[input_array.shift.to_i])
       else
         break
       end
@@ -79,6 +79,7 @@ class RomanConverter
     puts ''
     puts 'Your number converted to Roman Numerals is: '
     puts "#{numerals_string.join}"
+    puts ''
   end
 
 
