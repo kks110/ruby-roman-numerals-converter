@@ -42,24 +42,25 @@ class Converter
   # Then out puts the final number.
   def roman_convert(input)
     numerals_string = []
-    input = input.split('')
+    input_array = input.split('')
 
-    puts "   #{input.last} = #{@units[input.last.to_i - 1]}"
-    numerals_string.unshift( @units[input.pop.to_i - 1] )
-
-    unless input.empty?
-      puts "  #{input.last}0 = #{@tens[input.last.to_i - 1]}"
-      numerals_string.unshift( @tens[input.pop.to_i - 1] )
-    end
-
-    unless input.empty?
-      puts " #{input.last}00 = #{@hundreds[input.last.to_i - 1]}"
-      numerals_string.unshift( @hundreds[input.pop.to_i - 1] )
-    end
-
-    unless input.empty?
-      puts "#{input.last}000 = #{@thousands[input.last.to_i - 1]}"
-      numerals_string.unshift( @thousands[input.pop.to_i - 1] )
+    until input_array.empty?
+      case input_array.length
+      when 4
+        puts "#{input_array.first}000 = #{@thousands[input_array.first.to_i - 1]}"
+        numerals_string.push(@thousands[input_array.shift.to_i - 1])
+      when 3
+        puts " #{input_array.first}00 = #{@hundreds[input_array.first.to_i - 1]}"
+        numerals_string.push(@hundreds[input_array.shift.to_i - 1])
+      when 2
+        puts "  #{input_array.first}0 = #{@tens[input_array.first.to_i - 1]}"
+        numerals_string.push(@tens[input_array.shift.to_i - 1])
+      when 1
+        puts "   #{input_array.first} = #{@units[input_array.first.to_i - 1]}"
+        numerals_string.push(@units[input_array.shift.to_i - 1])
+      else
+        break
+      end
     end
 
     puts ''
