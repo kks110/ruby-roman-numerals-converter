@@ -2,34 +2,45 @@
 class DigitConverter
   # The Roman numerals.
   def initialize
-    @units = %w[I II III IV V VI VII VIII IX]
-    @tens = %w[X XX XXX XL L LX LXX LXXX XC]
-    @hundreds = %w[C CC CCC DC D DC DCC DCCC CM]
-    @thousands = %w[M MM MMM]
+    @numerals = {
+      M: 1000,
+      CM: 900,
+      D: 500,
+      CD: 400,
+      C: 100,
+      XC: 90,
+      L: 50,
+      XL: 40,
+      X: 10,
+      IX: 9,
+      V: 5,
+      IV: 4,
+      I: 1
+    }
   end
 
   def run
-    roman_convert(enter_number)
+    digit_convert(enter_number)
   end
 
   # Gets the number.
   def enter_number
-    puts 'Please enter a number between 1 and 3999: '
-    user_input = gets.chomp
+    puts 'Please enter a Roman Numeral: '
+    user_input = gets.chomp.upcase
 
     # Checks its valid.
-    until valid_input?(user_input)
-      puts 'Invalid input, please enter a number between 1 and 3999: '
-      user_input = gets.chomp
-    end
+    # until valid_input?(user_input)
+    # puts 'Invalid input, please enter a valid Roman Numeral: '
+    #   user_input = gets.chomp
+    # end
     puts ''
     user_input
   end
 
   # Checks if input is a number, then if its between 1 and 3999.
   def valid_input?(input)
-    if input =~ /\A\d+\Z/
-      if input.to_i > 0 and input.to_i < 4000
+    if input =~ /^([^0-9]*)$/
+      if ["I", "V", "X", "L", "C", "D", "M"].any? { |char| input.include? char }
         true
       else
         false
@@ -43,32 +54,15 @@ class DigitConverter
   # Does the conversion, outputs what that number is and
   # # adds it to the numerals array.
   # Then out puts the final number.
-  def roman_convert(input)
-    numerals_string = []
-    input_array = input.split('')
-
-    until input_array.empty?
-      case input_array.length
-      when 4
-        puts "#{input_array.first}000 = #{@thousands[input_array.first.to_i - 1]}"
-        numerals_string.push(@thousands[input_array.shift.to_i - 1])
-      when 3
-        puts " #{input_array.first}00 = #{@hundreds[input_array.first.to_i - 1]}"
-        numerals_string.push(@hundreds[input_array.shift.to_i - 1])
-      when 2
-        puts "  #{input_array.first}0 = #{@tens[input_array.first.to_i - 1]}"
-        numerals_string.push(@tens[input_array.shift.to_i - 1])
-      when 1
-        puts "   #{input_array.first} = #{@units[input_array.first.to_i - 1]}"
-        numerals_string.push(@units[input_array.shift.to_i - 1])
-      else
-        break
+  def digit_convert(input)
+    sum = 0
+    @numerals.each do |k, v|
+      if input.start_with?(k.to_s)
+        sum += @numerals[(input[0]).to_sym]
+        input.slice! input[0]
       end
     end
-
-    puts ''
-    puts 'Your number converted to Roman Numerals is: '
-    puts "#{numerals_string.join}"
+    puts sum
   end
 
 
