@@ -29,23 +29,24 @@ class DigitConverter
     user_input = gets.chomp.upcase
 
     # Checks its valid.
-    # until valid_input?(user_input)
-    # puts 'Invalid input, please enter a valid Roman Numeral: '
-    #   user_input = gets.chomp
-    # end
+    until valid_input?(user_input)
+      puts 'Invalid input, please enter a valid Roman Numeral: '
+      user_input = gets.chomp
+    end
     puts ''
     user_input
   end
 
-  # Checks if input is a number, then if its between 1 and 3999.
   def valid_input?(input)
     if input =~ /^([^0-9]*)$/
-      if ["I", "V", "X", "L", "C", "D", "M"].any? { |char| input.include? char }
+      if input.count('^IVXLCDM').zero?
         true
       else
+        puts 'String contains characters that are not Roman numerals.'
         false
       end
     else
+      puts 'String contains a number'
       false
     end
   end
@@ -56,13 +57,15 @@ class DigitConverter
   # Then out puts the final number.
   def digit_convert(input)
     sum = 0
-    @numerals.each do |k, v|
-      if input.start_with?(k.to_s)
-        sum += @numerals[(input[0]).to_sym]
-        input.slice! input[0]
+    until input.empty?
+      @numerals.each_key do |k|
+        if input.start_with?(k.to_s)
+          sum += @numerals[k]
+          input.slice! k.to_s
+        end
       end
     end
-    puts sum
+    puts "Your number converted to arabic numbers is: #{sum}"
   end
 
 

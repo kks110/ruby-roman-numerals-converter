@@ -7,6 +7,10 @@ class RomanConverter
     @hundreds = %w[C C CC CCC DC D DC DCC DCCC CM]
     @thousands = %w[M M MM MMM]
 
+    start_text
+  end
+
+  def start_text
     puts 'You can write numbers between 1 and 3999 using Roman Numerals.'
     puts 'I = 1'
     puts 'V = 5'
