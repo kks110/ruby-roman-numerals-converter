@@ -1,8 +1,6 @@
 require './roman_converter'
 require './digit_converter'
 
-
-
 puts 'Welcome to the converter. How would you like to convert?'
 puts '1: Roman to Digits'
 puts '2: Digits to Roman'
